@@ -2,7 +2,7 @@
 <DataSettings>
   <Setting>
     <add key="test" DataConnectionString="" IsWcf="true" EndPointName="MyTest1"/>
-    <add key="FniCnn" DataConnectionString="Data Source=;Initial Catalog=Northwind;User ID=sa;Password=" IsEncryption="false" IsWcf="true" EndPointName="MyTest2"/>
+    <add key="FniCnn" DataConnectionString="Data Source=xxxxxx;Initial Catalog=Northwind;User ID=sa;Password=" IsEncryption="false" IsWcf="true" EndPointName="MyTest2"/>
   </Setting>
 
 </DataSettings>
