@@ -4,11 +4,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-  
-  </ItemGroup>
-
-
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.2.1" />
