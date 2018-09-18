@@ -1,0 +1,12 @@
+﻿@using DemoTools.UIServer.DemoNorthwind
+@model AzProductsListWebDto
+@{
+   ViewBag.Title = AzProductsListWebDto.DisplayDescription;
+ }
+
+ <div id="content">
+ <h2>@AzProductsListWebDto.DisplayDescription</h2>
+ <div style="clear: both;"></div>
+    @await Html.PartialAsync("DetailsPage", Model) 
+ </div>
+@section Scripts{<script src="~/js/MvcPager.js"></script>}

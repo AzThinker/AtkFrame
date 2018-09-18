@@ -1,0 +1,43 @@
+﻿@using Webdiyer.WebControls.AspNetCore;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper "*,Webdiyer.WebControls.MvcPager"
+@using DemoTools.UIServer.DemoNorthwind
+@model AzProductsListWebDto
+
+<div style="clear: both;"></div>
+<div id="azproductsTargetId">
+    <table>
+        <tr>
+            <th colspan=" 5 " class="table - title">
+                产品
+            </th>
+        </tr>
+        <tr>
+            <th>ProductID_simpCN</th>
+            <th>ProductName_simpCN</th>
+            <th>QuantityPerUnit_simpCN</th>
+            <th>UnitPrice_simpCN</th>
+
+            <th>操作</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.ProductID)</td>
+                <td> @Html.DisplayFor(modelItem => item.ProductName)</td>
+                <td> @Html.DisplayFor(modelItem => item.QuantityPerUnit)</td>
+                <td> @Html.DisplayFor(modelItem => item.UnitPrice)</td>
+
+                <td>
+
+                    @Html.ActionLink("增加", "Create", new { Id = item.ProductID })
+                    @Html.ActionLink("编辑", "Edit", new { Id = item.ProductID })
+                    @Html.ActionLink("删除", "Delete", new { Id = item.ProductID })
+                    @Html.ActionLink("明细", "Details", new { Id = item.ProductID })
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<mvcpager asp-model="@Model" ajax-enabled="true" ajax-update-target="azproductsTargetId"></mvcpager>

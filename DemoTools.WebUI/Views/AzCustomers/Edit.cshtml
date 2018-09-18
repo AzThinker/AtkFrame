@@ -1,0 +1,98 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzCustomersWebDto
+@{
+   ViewBag.Title = "编辑"+AzCustomersWebDto.DisplayDescription;
+ }
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<h2>@string.Concat(@AzCustomersWebDto.DisplayDescription,"编辑")</h2>
+@using (Html.BeginForm("Edit", "AzCustomers")) {
+  @Html.ValidationSummary(true)
+   <fieldset>
+    <legend>@string.Concat("编辑",@AzCustomersWebDto.DisplayDescription)</legend>
+            	        <div class="editor-label">
+           CustomerID_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.CustomerID)
+	   @Html.ValidationMessageFor(model => model.CustomerID)
+        </div>
+	        <div class="editor-label">
+           CompanyName_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.CompanyName)
+	   @Html.ValidationMessageFor(model => model.CompanyName)
+        </div>
+	        <div class="editor-label">
+           ContactName_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.ContactName)
+	   @Html.ValidationMessageFor(model => model.ContactName)
+        </div>
+	        <div class="editor-label">
+           ContactTitle_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.ContactTitle)
+	   @Html.ValidationMessageFor(model => model.ContactTitle)
+        </div>
+	        <div class="editor-label">
+           Address_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Address)
+	   @Html.ValidationMessageFor(model => model.Address)
+        </div>
+	        <div class="editor-label">
+           City_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.City)
+	   @Html.ValidationMessageFor(model => model.City)
+        </div>
+	        <div class="editor-label">
+           Region_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Region)
+	   @Html.ValidationMessageFor(model => model.Region)
+        </div>
+	        <div class="editor-label">
+           PostalCode_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.PostalCode)
+	   @Html.ValidationMessageFor(model => model.PostalCode)
+        </div>
+	        <div class="editor-label">
+           Country_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Country)
+	   @Html.ValidationMessageFor(model => model.Country)
+        </div>
+	        <div class="editor-label">
+           Phone_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Phone)
+	   @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+	        <div class="editor-label">
+           Fax_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Fax)
+	   @Html.ValidationMessageFor(model => model.Fax)
+        </div>
+
+     <button type="submit">编辑</button>  
+    </fieldset>
+ }
+ @Html.ActionLink("返回列表", "Index") 
+

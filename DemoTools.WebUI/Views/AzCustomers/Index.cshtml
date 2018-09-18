@@ -1,0 +1,51 @@
+﻿@using DemoTools.UIServer.DemoNorthwind
+@model AzCustomersListWebDto
+@{
+   ViewBag.Title = AzCustomersListWebDto.DisplayDescription;
+ }
+
+<h2>@AzCustomersListWebDto.DisplayDescription</h2>
+<div>
+    <table>
+       <tr>
+        		<th colspan=" 11 " class="table - title">
+		客户
+	</th>
+	</tr>
+	<tr>
+	<th>CustomerID_simpCN</th>
+	<th>CompanyName_simpCN</th>
+	<th>ContactName_simpCN</th>
+	<th>ContactTitle_simpCN</th>
+	<th>Address_simpCN</th>
+	<th>City_simpCN</th>
+	<th>Region_simpCN</th>
+	<th>PostalCode_simpCN</th>
+	<th>Country_simpCN</th>
+	<th>Phone_simpCN</th>
+	<th>Fax_simpCN</th>
+
+       <th>
+       </th>
+       </tr>
+        @foreach (var item in Model)
+        {
+               <tr>
+                   	<td> @Html.DisplayFor(modelItem=>item.CustomerID)</td>
+	<td> @Html.DisplayFor(modelItem=>item.CompanyName)</td>
+	<td> @Html.DisplayFor(modelItem=>item.ContactName)</td>
+	<td> @Html.DisplayFor(modelItem=>item.ContactTitle)</td>
+	<td> @Html.DisplayFor(modelItem=>item.Address)</td>
+	<td> @Html.DisplayFor(modelItem=>item.City)</td>
+	<td> @Html.DisplayFor(modelItem=>item.Region)</td>
+	<td> @Html.DisplayFor(modelItem=>item.PostalCode)</td>
+	<td> @Html.DisplayFor(modelItem=>item.Country)</td>
+	<td> @Html.DisplayFor(modelItem=>item.Phone)</td>
+	<td> @Html.DisplayFor(modelItem=>item.Fax)</td>
+
+                </tr>
+         }
+     </table>
+</div>
+ 
+ 

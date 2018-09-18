@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Atk.DataPortal\Atk.DataPortal.csproj" />
+    <ProjectReference Include="..\Atk.WebCore\Atk.WebCore.csproj" />
+    <ProjectReference Include="..\DemoTools.BLL\DemoTools.BLL.csproj" />
+    <ProjectReference Include="..\MvcPagerCore\MvcPagerCore.csproj" />
+  </ItemGroup>
+
+</Project>

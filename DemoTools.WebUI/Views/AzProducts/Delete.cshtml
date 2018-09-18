@@ -1,0 +1,89 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzProductsWebDto
+@{
+   ViewBag.Title = "删除"+AzProductsWebDto.DisplayDescription;
+ }
+
+<h2>@string.Concat(@AzProductsWebDto.DisplayDescription,"删除")</h2>
+@using (Html.BeginForm("Delete","AzProducts")) {
+  @Html.ValidationSummary(true)
+   <fieldset>
+    <legend>@AzProductsWebDto.DisplayDescription</legend>
+       	        <div class="display-label">
+           ProductID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ProductID)
+        </div>
+         
+	        <div class="display-label">
+           ProductName_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ProductName)
+        </div>
+         
+	        <div class="display-label">
+           SupplierID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.SupplierID)
+        </div>
+         
+	        <div class="display-label">
+           CategoryID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.CategoryID)
+        </div>
+         
+	        <div class="display-label">
+           QuantityPerUnit_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.QuantityPerUnit)
+        </div>
+         
+	        <div class="display-label">
+           UnitPrice_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.UnitPrice)
+        </div>
+         
+	        <div class="display-label">
+           UnitsInStock_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.UnitsInStock)
+        </div>
+         
+	        <div class="display-label">
+           UnitsOnOrder_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.UnitsOnOrder)
+        </div>
+         
+	        <div class="display-label">
+           ReorderLevel_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ReorderLevel)
+        </div>
+         
+	        <div class="display-label">
+           Discontinued_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Discontinued)
+        </div>
+         
+
+       <button type="submit">删除</button>
+    </fieldset>
+ }
+ @Html.ActionLink("返回列表", "Index")  
+
+

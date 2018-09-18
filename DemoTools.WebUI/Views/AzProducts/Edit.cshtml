@@ -1,0 +1,91 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzProductsWebDto
+@{
+   ViewBag.Title = "编辑"+AzProductsWebDto.DisplayDescription;
+ }
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<h2>@string.Concat(@AzProductsWebDto.DisplayDescription,"编辑")</h2>
+@using (Html.BeginForm("Edit", "AzProducts")) {
+  @Html.ValidationSummary(true)
+   <fieldset>
+    <legend>@string.Concat("编辑",@AzProductsWebDto.DisplayDescription)</legend>
+            	        <div class="display-label">
+           ProductID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ProductID)
+        </div>
+         
+	        <div class="editor-label">
+           ProductName_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.ProductName)
+	   @Html.ValidationMessageFor(model => model.ProductName)
+        </div>
+	        <div class="editor-label">
+           SupplierID_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.SupplierID)
+	   @Html.ValidationMessageFor(model => model.SupplierID)
+        </div>
+	        <div class="editor-label">
+           CategoryID_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.CategoryID)
+	   @Html.ValidationMessageFor(model => model.CategoryID)
+        </div>
+	        <div class="editor-label">
+           QuantityPerUnit_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.QuantityPerUnit)
+	   @Html.ValidationMessageFor(model => model.QuantityPerUnit)
+        </div>
+	        <div class="editor-label">
+           UnitPrice_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.UnitPrice)
+	   @Html.ValidationMessageFor(model => model.UnitPrice)
+        </div>
+	        <div class="editor-label">
+           UnitsInStock_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.UnitsInStock)
+	   @Html.ValidationMessageFor(model => model.UnitsInStock)
+        </div>
+	        <div class="editor-label">
+           UnitsOnOrder_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.UnitsOnOrder)
+	   @Html.ValidationMessageFor(model => model.UnitsOnOrder)
+        </div>
+	        <div class="editor-label">
+           ReorderLevel_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.ReorderLevel)
+	   @Html.ValidationMessageFor(model => model.ReorderLevel)
+        </div>
+	        <div class="editor-label">
+           Discontinued_simpCN
+        </div>
+        <div class="editor-field">
+           @Html.EditorFor(model => model.Discontinued)
+	   @Html.ValidationMessageFor(model => model.Discontinued)
+        </div>
+
+     <button type="submit">编辑</button>  
+    </fieldset>
+ }
+ @Html.ActionLink("返回列表", "Index") 
+

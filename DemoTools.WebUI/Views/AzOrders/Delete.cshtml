@@ -1,0 +1,117 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzOrdersWebDto
+@{
+   ViewBag.Title = "删除"+AzOrdersWebDto.DisplayDescription;
+ }
+
+<h2>@string.Concat(@AzOrdersWebDto.DisplayDescription,"删除")</h2>
+@using (Html.BeginForm("Delete","AzOrders")) {
+  @Html.ValidationSummary(true)
+   <fieldset>
+    <legend>@AzOrdersWebDto.DisplayDescription</legend>
+       	        <div class="display-label">
+           OrderID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.OrderID)
+        </div>
+         
+	        <div class="display-label">
+           CustomerID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.CustomerID)
+        </div>
+         
+	        <div class="display-label">
+           EmployeeID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.EmployeeID)
+        </div>
+         
+	        <div class="display-label">
+           OrderDate_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.OrderDate)
+        </div>
+         
+	        <div class="display-label">
+           RequiredDate_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.RequiredDate)
+        </div>
+         
+	        <div class="display-label">
+           ShippedDate_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShippedDate)
+        </div>
+         
+	        <div class="display-label">
+           ShipVia_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipVia)
+        </div>
+         
+	        <div class="display-label">
+           Freight_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Freight)
+        </div>
+         
+	        <div class="display-label">
+           ShipName_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipName)
+        </div>
+         
+	        <div class="display-label">
+           ShipAddress_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipAddress)
+        </div>
+         
+	        <div class="display-label">
+           ShipCity_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipCity)
+        </div>
+         
+	        <div class="display-label">
+           ShipRegion_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipRegion)
+        </div>
+         
+	        <div class="display-label">
+           ShipPostalCode_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipPostalCode)
+        </div>
+         
+	        <div class="display-label">
+           ShipCountry_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ShipCountry)
+        </div>
+         
+
+       <button type="submit">删除</button>
+    </fieldset>
+ }
+ @Html.ActionLink("返回列表", "Index")  
+
+

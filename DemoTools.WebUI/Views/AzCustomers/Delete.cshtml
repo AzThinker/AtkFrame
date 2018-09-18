@@ -1,0 +1,96 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzCustomersWebDto
+@{
+   ViewBag.Title = "删除"+AzCustomersWebDto.DisplayDescription;
+ }
+
+<h2>@string.Concat(@AzCustomersWebDto.DisplayDescription,"删除")</h2>
+@using (Html.BeginForm("Delete","AzCustomers")) {
+  @Html.ValidationSummary(true)
+   <fieldset>
+    <legend>@AzCustomersWebDto.DisplayDescription</legend>
+       	        <div class="display-label">
+           CustomerID_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.CustomerID)
+        </div>
+         
+	        <div class="display-label">
+           CompanyName_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.CompanyName)
+        </div>
+         
+	        <div class="display-label">
+           ContactName_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ContactName)
+        </div>
+         
+	        <div class="display-label">
+           ContactTitle_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.ContactTitle)
+        </div>
+         
+	        <div class="display-label">
+           Address_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Address)
+        </div>
+         
+	        <div class="display-label">
+           City_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.City)
+        </div>
+         
+	        <div class="display-label">
+           Region_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Region)
+        </div>
+         
+	        <div class="display-label">
+           PostalCode_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.PostalCode)
+        </div>
+         
+	        <div class="display-label">
+           Country_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Country)
+        </div>
+         
+	        <div class="display-label">
+           Phone_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Phone)
+        </div>
+         
+	        <div class="display-label">
+           Fax_simpCN
+        </div>
+        <div class="display-field">
+           @Html.DisplayFor(model => model.Fax)
+        </div>
+         
+
+       <button type="submit">删除</button>
+    </fieldset>
+ }
+ @Html.ActionLink("返回列表", "Index")  
+
+

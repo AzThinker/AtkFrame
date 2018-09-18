@@ -1,0 +1,88 @@
+﻿
+@using DemoTools.UIServer.DemoNorthwind
+@model AzProductsWebDto
+@{
+    ViewBag.Title = AzProductsWebDto.DisplayDescription;
+}
+<h2>@AzProductsWebDto.DisplayDescription</h2>
+<fieldset>
+    <legend>@AzProductsWebDto.DisplayDescription</legend>
+    <div class="display-label">
+        ProductID_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProductID)
+    </div>
+
+    <div class="display-label">
+        ProductName_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProductName)
+    </div>
+
+    <div class="display-label">
+        SupplierID_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SupplierID)
+    </div>
+
+    <div class="display-label">
+        CategoryID_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoryID)
+    </div>
+
+    <div class="display-label">
+        QuantityPerUnit_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QuantityPerUnit)
+    </div>
+
+    <div class="display-label">
+        UnitPrice_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UnitPrice)
+    </div>
+
+    <div class="display-label">
+        UnitsInStock_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UnitsInStock)
+    </div>
+
+    <div class="display-label">
+        UnitsOnOrder_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UnitsOnOrder)
+    </div>
+
+    <div class="display-label">
+        ReorderLevel_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReorderLevel)
+    </div>
+
+    <div class="display-label">
+        Discontinued_simpCN
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Discontinued)
+    </div>
+
+
+</fieldset>
+
+<ul>
+    @Html.ActionLink("增加", "Create", new { Id = Model.ProductID })
+    @Html.ActionLink("编辑", "Edit", new { Id = Model.ProductID })
+    @Html.ActionLink("删除", "Delete", new { Id = Model.ProductID })
+</ul>
+

@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Atk.DataPortal\Atk.DataPortal.csproj" />
+    <ProjectReference Include="..\Atk.Expression\Atk.Expression.csproj" />
+    <ProjectReference Include="..\Atk.WebCore\Atk.WebCore.csproj" />
+    <ProjectReference Include="..\DemoTools.BLL\DemoTools.BLL.csproj" />
+    <ProjectReference Include="..\DemoTools.UIServer\DemoTools.UIServer.csproj" />
+    <ProjectReference Include="..\MvcPagerCore\MvcPagerCore.csproj" />
+  </ItemGroup>
+
+</Project>
