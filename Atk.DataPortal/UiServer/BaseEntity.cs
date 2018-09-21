@@ -3,7 +3,7 @@
 namespace Atk.DataPortal.UiServer
 {
     /// <summary>
-    /// WebDto的基类，这是为了兼容Fni而增加的
+    /// WebDto的基类
     /// </summary>
     public abstract partial class BaseEntity
     {
@@ -11,7 +11,7 @@ namespace Atk.DataPortal.UiServer
 
 
         /// <summary>
-        /// 实例类型Id，用于NopCommerce中
+        /// 实例类型Id
         /// </summary>
         public int Id { get; set; }
 
@@ -55,7 +55,7 @@ namespace Atk.DataPortal.UiServer
 
 
         /// <summary>
-        /// 此方法在Nopcommerce中有效，当非NOP项目时，尽量不要用Id为表格中的字段，以免发生冲突
+        /// 
         /// </summary>
         /// <param name="other">对比对象</param>
         /// <returns>相等是为真</returns>

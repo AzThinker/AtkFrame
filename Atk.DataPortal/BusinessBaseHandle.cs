@@ -39,7 +39,7 @@ namespace Atk.DataPortal
         /// <summary>
         /// 数据门上下文
         /// </summary>
-        public DataPortalContext BizDataportalcontext
+        public DataPortalContext AtkDataportalcontext
         {
             get { return _dataportalcontext; }
             set { _dataportalcontext = value; }

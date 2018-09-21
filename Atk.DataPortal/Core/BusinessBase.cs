@@ -48,7 +48,7 @@ namespace Atk.DataPortal.Core
         /// </summary>
         public BusinessBase()
         {
-            AccessAddress = string.Empty;
+            AccessPath = string.Empty;
             AccessAddress = string.Empty;
             Op = RecordOperater.Updata;
             State = new OperateState();
