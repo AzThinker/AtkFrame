@@ -10,26 +10,25 @@ namespace Atk.DataPortal
     /// </summary>
     /// <typeparam name="Es">BLL业务列表类型</typeparam>
     /// <typeparam name="E">BLL业务类型</typeparam>
-    public class DataPortalList<Es, E> : IDataPortalList<Es, E>
-        where Es : BusinessListBase<E>
-        where E : BusinessBase
+    public class DataPortalList<Es, E> //: IDataPortalList<BusinessCriteria<E>, E>
+                where E : BusinessBase, new()
     {
         /// <summary>
         /// 获取操作
         /// </summary>
         /// <param name="obj">业务类</param>
         /// <returns>返回结果</returns>
-        public Es FetchList(Es obj)
+        public Es FetchList(BusinessCriteria<E> obj)
         {
 
             if (obj.Context.IsWcf)
             {
 
-                return new WcfProxy<Es>().Fetch(obj);
+                return new WcfProxy<BusinessCriteria<E>>().Fetch(obj);
             }
             else
             {
-                return LocalProxy<Es>.Fetch(obj);
+                return LocalProxy<BusinessCriteria<E>>.Fetch(obj);
             }
 
         }
@@ -40,16 +39,16 @@ namespace Atk.DataPortal
         /// </summary>
         /// <param name="obj">业务类</param>
         /// <returns>返回结果</returns>
-        public Es SpFetchList(Es obj)
+        public Es SpFetchList(BusinessCriteria<E> obj)
         {
 
             if (obj.Context.IsWcf)
             {
-                return new WcfProxy<Es>().SpFetch(obj);
+                return new WcfProxy<BusinessCriteria<E>>().SpFetch(obj);
             }
             else
             {
-                return LocalProxy<Es>.SpFetch(obj);
+                return LocalProxy<BusinessCriteria<E>>.SpFetch(obj);
             }
 
         }
@@ -61,16 +60,16 @@ namespace Atk.DataPortal
         /// <param name="obj">业务类</param>
         /// <returns>返回结果</returns>
 
-        public OperateState BatchSave(Es obj)
+        public OperateState BatchSave(BusinessCriteria<E> obj)
         {
 
             if (obj.Context.IsWcf)
             {
-                return new WcfProxy<Es>().BatchSave(obj);
+                return new WcfProxy<BusinessCriteria<E>>().BatchSave(obj);
             }
             else
             {
-                return LocalProxy<Es>.Update(obj);
+                return LocalProxy<BusinessCriteria<E>>.Update(obj);
             }
 
         }

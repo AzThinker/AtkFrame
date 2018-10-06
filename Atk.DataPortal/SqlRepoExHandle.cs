@@ -7,9 +7,9 @@ using Atk.DataPortal.Core;
 using SqlRepoEx;
 using SqlRepoEx.Abstractions;
 
-namespace Atk.SqlRepoExBLL
+namespace Atk.DataPortal
 {
-    public class SqlRepoExHandle<TEntity> where TEntity : BusinessEditBase, new()
+    public class SqlRepoExHandle<TEntity> where TEntity : BusinessBase, new()
     {
         private readonly IRepository<TEntity> repository;
 
@@ -18,23 +18,24 @@ namespace Atk.SqlRepoExBLL
             this.repository = repository;
         }
 
-        public TEntity DB_ExecuteQuerySql(TEntity entity)
+        public TEntity DB_ExecuteQuerySql(BusinessCriteria<TEntity> businessCriteria)
         {
-            return repository.ExecuteQuerySql().WithSql(entity.Criteria.SqlRepoExStatement).Go().ToList().FirstOrDefault();
+            return repository.ExecuteQuerySql().WithSql(businessCriteria.SqlRepoExStatement).Go().ToList().FirstOrDefault();
         }
 
-        public void DB_ExecuteNonQuerySql(TEntity entity)
+        public void DB_ExecuteNonQuerySql(BusinessCriteria<TEntity> businessCriteria)
         {
-            repository.ExecuteNonQuerySql().WithSql(entity.Criteria.SqlRepoExStatement).Go();
+            repository.ExecuteNonQuerySql().WithSql(businessCriteria.SqlRepoExStatement).Go();
         }
 
 
-        public BusinessListBase<TEntity> DB_ExecuteQuerySqlList(BusinessListBase<TEntity> entity)
+        public BusinessListBase<TEntity> DB_ExecuteQuerySqlList(BusinessCriteria<TEntity> businessCriteria)
         {
-            var azItem = repository.ExecuteQuerySql().WithSql(entity.Criteria.SqlRepoExStatement).Go().ToList();
-            entity.Clear();
-            entity.AddRange(azItem);
-            return entity;
+            BusinessListBase<TEntity> entities = new BusinessListBase<TEntity>();
+            var azItem = repository.ExecuteQuerySql().WithSql(businessCriteria.SqlRepoExStatement).Go().ToList();
+            entities.Clear();
+            entities.AddRange(azItem);
+            return entities;
         }
 
         public BusinessListBase<TEntity> DB_ExecuteQueryProcedure(string FunctionName, ParameterDefinition[] parameterDefinitions)

@@ -1,6 +1,8 @@
-﻿using Atk.DataPortal.Core;
+﻿using System;
+using System.Linq;
+using Atk.DataPortal.Core;
 using Atk.Tool.Cryptogram;
-using System;
+using SqlRepoEx.Core;
 
 namespace Atk.DataPortal.Client
 {
@@ -9,49 +11,18 @@ namespace Atk.DataPortal.Client
     /// </summary>
     /// <typeparam name="T">业务类</typeparam>
     internal static class LocalProxy<T>
-        where T : IBusinessTrace
+        where T : BusinessBase, new()
     {
-
-        private static T GetDataPortalContext(T obj)
-        {
-            if (obj is IBusinessContext)
-            {
-                var context = (obj as IBusinessContext).Context;
-                var reult = DataSettingsHelper.GetCurrentDataSetting(context.DbConnectionKey);
-            
-                (obj as IBusinessContext).Context = reult;
-            }
-            else
-                if (obj is IBusinessListContext)
-                {
-                    var context = (obj as IBusinessListContext).Context;
-                    var reult = DataSettingsHelper.GetCurrentDataSetting(context.DbConnectionKey);
-                    (obj as IBusinessListContext).Context = reult;
-
-                }
-
-            return obj;
-        }
 
         /// <summary>
         /// 增加操作
         /// </summary>
-        /// <param name="obj">业务实例</param>
+        /// <param name="insertStatement">业务实例</param>
         /// <returns>被创建实例</returns>
-        public static OperateState Insert(T obj)
+        public static T Insert(InsertStatementBase<T> insertStatement)
         {
-            obj.TraceSignPath("Local-in");
-            obj = GetDataPortalContext(obj);
-            if (obj is IBusinessInsert)
-            {
-                (obj as IBusinessInsert).DataPortal_Insert();
-                obj.TraceSignLoacl();
-                return obj.State;
-            }
-            else
-            {
-                throw new Exception("本地代理 Insert 方法调用失败");
-            }
+            return insertStatement.Go();
+
         }
 
 
@@ -61,21 +32,22 @@ namespace Atk.DataPortal.Client
         /// </summary>
         /// <param name="obj">业务实例</param>
         /// <returns>查询结果实例</returns>
-        public static T Fetch(T obj)
+        public static T Fetch(SelectStatementBase<T> selectStatement)
         {
-            obj.TraceSignPath("Local-in");
-            obj = GetDataPortalContext(obj);
-            if (obj is IBusinessFetch)
-            {
-                (obj as IBusinessFetch).DataPortal_Fetch();
+            return selectStatement.Go().ToList().FirstOrDefault();
+        }
 
-                obj.TraceSignLoacl();
-                return obj;
-            }
-            else
-            {
-                throw new Exception("本地代理 Fetch 方法调用失败");
-            }
+        /// <summary>
+        /// 查询操作
+        /// </summary>
+        /// <param name="obj">业务实例</param>
+        /// <returns>查询结果实例</returns>
+        public static BusinessListBase<T> FetchList(SelectStatementBase<T> selectStatement)
+        {
+            BusinessListBase<T> blist = new BusinessListBase<T>();
+            var result = selectStatement.Go();
+            blist.AddRange(result);
+            return blist;
         }
 
         /// <summary>
@@ -83,19 +55,9 @@ namespace Atk.DataPortal.Client
         /// </summary>
         /// <param name="obj">业务实例</param>
         /// <returns>被更新实例</returns>
-        public static OperateState Update(T obj)
+        public static int Update(UpdateStatementBase<T> updateStatement)
         {
-            obj = GetDataPortalContext(obj);
-            if (obj is IBusinessUpdate)
-            {
-                (obj as IBusinessUpdate).DataPortal_Update();
-                obj.TraceSignLoacl();
-                return obj.State;
-            }
-            else
-            {
-                throw new Exception("本地代理 Update 方法调用失败");
-            }
+            return updateStatement.Go();
         }
 
         /// <summary>
@@ -103,20 +65,9 @@ namespace Atk.DataPortal.Client
         /// </summary>
         /// <param name="obj">业务实例</param>
         /// <returns>操作实例（只是类实例，可携带删除操作结果）</returns>
-        public static OperateState Delete(T obj)
+        public static int Delete(DeleteStatementBase<T> deleteStatement)
         {
-            obj.TraceSignPath("Local-in");
-            obj = GetDataPortalContext(obj);
-            if (obj is IBusinessDelete)
-            {
-                (obj as IBusinessDelete).DataPortal_Delete();
-                obj.TraceSignLoacl();
-                return obj.State;
-            }
-            else
-            {
-                throw new Exception("本地代理 Delete 方法调用失败");
-            }
+            return deleteStatement.Go();
         }
 
         /// <summary>
@@ -124,7 +75,7 @@ namespace Atk.DataPortal.Client
         /// </summary>
         /// <param name="obj">业务实例</param>
         /// <returns>命令实例（只是类实例，可携带操作结果）</returns>
-        public static OperateState Execute(T obj)
+        public static OperateState Execute(ExecuteNonQuerySqlStatement executeNonQuery)
         {
             obj.TraceSignPath("Local-in");
             obj = GetDataPortalContext(obj);
@@ -159,27 +110,6 @@ namespace Atk.DataPortal.Client
             else
             {
                 throw new Exception("本地代理 SpFetch 方法调用失败");
-            }
-        }
-
-
-        /// <summary>
-        /// 更新操作
-        /// </summary>
-        /// <param name="obj">业务实例</param>
-        /// <returns>被更新实例</returns>
-        public static OperateState BatchSave(T obj)
-        {
-            obj = GetDataPortalContext(obj);
-            if (obj is IBusinessUpdate)
-            {
-                (obj as IBusinessUpdate).DataPortal_Update();
-                obj.TraceSignLoacl();
-                return obj.State;
-            }
-            else
-            {
-                throw new Exception("本地代理 Update 方法调用失败");
             }
         }
 

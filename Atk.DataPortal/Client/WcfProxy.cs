@@ -16,7 +16,7 @@ namespace Atk.DataPortal.Client
     /// </summary>
     /// <typeparam name="T"></typeparam>
     internal sealed class WcfProxy<T>
-        where T : IBusinessTrace, IBusinessBaseContext
+        where T : BusinessBase,new()
     {
         private static System.ServiceModel.Channels.Binding _defaultBinding;
         private const int TimeoutInMinutes = 10;
@@ -103,15 +103,15 @@ namespace Atk.DataPortal.Client
             return cf.CreateChannel();
         }
 
-        public OperateState Insert(T obj)
+        public OperateState Insert(BusinessCriteria<T> businessCriteria)
         {
-            ChannelFactory<IWcfPortal> cf = GetChannelFactory(obj.Context);
+            ChannelFactory<IWcfPortal> cf = GetChannelFactory(businessCriteria.Context);
             var proxy = GetProxy(cf);
             WcfResponse response = null;
             try
             {
                 // 
-                var request = new InsertRequest(obj);
+                var request = new InsertRequest(businessCriteria);
 
 
                 response = proxy.InsertAsync(request).Result;
@@ -132,26 +132,26 @@ namespace Atk.DataPortal.Client
             return (OperateState)result;
         }
 
-        public T Fetch(T obj)
+        public T Fetch(BusinessCriteria<T>  businessCriteria)
         {
-            if (!(obj is IBusinessFetch))
+            if (!(businessCriteria is IBusinessFetch))
             {
                 throw new Exception("未实现 Fetch 方法");
             }
-            ChannelFactory<IWcfPortal> cf = GetChannelFactory(obj.Context);
+            ChannelFactory<IWcfPortal> cf = GetChannelFactory(businessCriteria.Context);
             var proxy = GetProxy(cf);
             WcfResponse response = null;
             try
             {
                 FetchRequest request = null;
-                if (obj is IBusinessContext)
+                if (businessCriteria is IBusinessContext)
                 {
-                    request = new FetchRequest(typeof(T), (obj as IBusinessContext).Criteria, obj.Context);
+                    request = new FetchRequest(typeof(T), (businessCriteria as IBusinessContext).Criteria, businessCriteria.Context);
 
                 }
-                else if (obj is IBusinessListContext)
+                else if (businessCriteria is IBusinessListContext)
                 {
-                    request = new FetchRequest(typeof(T), (obj as IBusinessListContext).Criteria, obj.Context);
+                    request = new FetchRequest(typeof(T), (businessCriteria as IBusinessListContext).Criteria, businessCriteria.Context);
                 }
 
 
@@ -312,41 +312,7 @@ namespace Atk.DataPortal.Client
             TraceDo(cf, resultobj);
             return (T)resultobj.ReturnObject;
         }
-
-        public OperateState BatchSave(T obj)
-        {
-            if (!(obj is IBusinessUpdate))
-            {
-                throw new Exception("未实现 Update 方法");
-            }
-            ChannelFactory<IWcfPortal> cf = GetChannelFactory(obj.Context);
-            var proxy = GetProxy(cf);
-            WcfResponse response = null;
-            try
-            {
-                BatchSaveRequest request = null;
-                if (obj is IBusinessListContext)
-                {
-                    request = new BatchSaveRequest(typeof(T), (obj as IBusinessListContext).Criteria, obj.Context);
-                }
-
-                response = proxy.BatchSaveAsync(request).Result;
-
-                if (cf != null)
-                    cf.Close();
-            }
-            catch
-            {
-                cf.Abort();
-                throw new Exception("WCF ChannelFactory执行 BatchSave 方法失败");
-            }
-            object result = response.Result;
-            if (result is Exception)
-                throw (Exception)result;
-            //DataPortalResult resultobj = new DataPortalResult((OperateState)result);
-            //TraceDo(cf, resultobj);
-            return (OperateState)result;
-        }
+ 
         /// <summary>
         /// 返回标识
         /// </summary>
