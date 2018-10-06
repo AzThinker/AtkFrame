@@ -9,12 +9,12 @@ namespace DemoTools.BLL.DemoNorthwind
     /// </summary>
     public interface IAzCustomersDal
     {
-       
-        	void DB_Insert(AzCustomersEntity azItem);
-	void DB_Update(AzCustomersEntity azItem);
-	void DB_Delete(AzCustomersEntity azItem);
-	void DB_Fetch(AzCustomersEntity azItem);
-	void DB_FetchList(AzCustomersListEntity azItems);
+
+        void DB_Insert(AzCustomersEntity azItem);
+        void DB_Update(AzCustomersEntity azItem);
+        void DB_Delete(AzCustomersEntity azItem);
+        void DB_Fetch(AzCustomersEntity azItem);
+        void DB_FetchList(AzCustomersListEntity azItems);
 
 
     }

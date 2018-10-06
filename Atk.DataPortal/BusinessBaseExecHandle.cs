@@ -11,16 +11,10 @@ namespace Atk.DataPortal
     /// </summary>
     /// <typeparam name="E">BLL列表类</typeparam>
     /// <typeparam name="D">UI-DTO类</typeparam>
-    public abstract class BusinessBaseExecHandle<E, D>
+    public abstract class BusinessBaseExecHandle<E>
         where E : BusinessBase
-        where D : BaseUIExecDto<E>
     {
         #region 构造方法
-
-        /// <summary>
-        /// IOC容器
-        /// </summary>
-        protected ILifetimeScope _lc;
 
         /// <summary>
         /// 数据门上下文
@@ -45,11 +39,6 @@ namespace Atk.DataPortal
         /// 基本操作权限
         /// </summary>
         protected Power _power;
-
-        /// <summary>
-        /// 数据门
-        /// </summary>
-        protected IDataPortal<E> _dataportal;
 
         /// <summary>
         /// 设置基本操作权限
@@ -77,48 +66,6 @@ namespace Atk.DataPortal
         {
             _dataportalcontext = context;
         }
-
-        /// <summary>
-        /// 附加数据门上下文
-        /// </summary>
-        /// <param name="bllitem">BLL业务类</param>
-        protected virtual void ApplyContext(E bllitem)
-        {
-            bllitem.Context = _dataportalcontext;
-            bllitem.WorkContext = _workcontext;
-        }
-
-        /// <summary>
-        /// 返状态操作
-        /// </summary>
-        /// <param name="item">UI服务DTO类</param>
-        /// <returns>操作状态</returns>
-        protected virtual OperateState ItemHandleState(D item)
-        {
-            E bllitem = item.CopyToIn();
-            ApplyContext(bllitem);
-            return _dataportal.Execute(bllitem);
-        }
-
-        #endregion
-
-        #region 执行
-
-        /// <summary>
-        /// 执行
-        /// </summary>
-        /// <param name="item">传入UI的业务类实例，用着传入条件携带者</param>
-        /// <returns>更新结果</returns>
-        public virtual OperateState Execute(D item)
-        {
-            if (!_power.Execute)
-            {
-                return OperateState.FailState("没有编辑记录权限！");
-            }
-            //强制清除条件，以使记录更新为当前记录，而非批量更新
-            return ItemHandleState(item);
-        }
-
         #endregion
     }
 }

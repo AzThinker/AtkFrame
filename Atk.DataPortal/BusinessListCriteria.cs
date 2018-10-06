@@ -36,34 +36,5 @@ namespace Atk.DataPortal
             set { _currentPage = value; }
         }
 
-        /// <summary>
-        /// 业务参数类创建
-        /// </summary>
-        /// <typeparam name="U">业务类（DTO）</typeparam>
-        /// <param name="zaExp">表达式</param>
-        /// <returns>业务参数类实例</returns>
-        public new static BusinessListCriteria BusinessCriteriaCreate<U>(ExpConditions<U> zaExp)
-        {
-            BusinessListCriteria restult = new BusinessListCriteria();
-            if (zaExp != null)
-            {
-                restult.InsertSql = zaExp.InsertFields();
-
-                restult.UpdateSql = zaExp.UpdateFields();
-
-                restult.QueryWhere = zaExp.Where();
-
-                restult.QueryOrder = zaExp.OrderBy();
-
-                restult.QueryRows = zaExp.Rows();
-
-                restult.CurrentPage = zaExp.Page();
-
-            }
-            return restult;
-
-        }
-
-
     }
 }

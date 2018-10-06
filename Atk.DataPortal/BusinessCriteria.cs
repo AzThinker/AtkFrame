@@ -1,6 +1,9 @@
-﻿using Atk.CustomExpression;
+﻿using System;
+using System.Web.Script.Serialization;
+using Atk.CustomExpression;
 using Atk.DataPortal.Core;
-using System;
+using SqlRepoEx;
+using SqlRepoEx.Abstractions;
 
 
 namespace Atk.DataPortal
@@ -18,22 +21,29 @@ namespace Atk.DataPortal
         /// <typeparam name="U">UI服务DTO类</typeparam>
         /// <param name="znExp">表达式类</param>
         /// <returns>已经创建的参数类</returns>
-        public static BusinessCriteria BusinessCriteriaCreate<U>(ExpConditions<U> znExp)
+        public static BusinessCriteria BusinessCriteriaCreate<U>(IClauseBuilder clauseBuilder)
         {
             BusinessCriteria restult = new BusinessCriteria();
-            if (znExp != null)
+            if (clauseBuilder != null)
             {
-                restult.InsertSql = znExp.InsertFields();
+                JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+                restult.SqlRepoExStatement = clauseBuilder.Sql();
+                restult.ParameterDefinition = javaScriptSerializer.Serialize(new ParameterDefinition[] { });
+            }
+            return restult;
 
-                restult.UpdateSql = znExp.UpdateFields();
+        }
 
-                restult.QueryWhere = znExp.Where();
 
-                restult.QueryOrder = znExp.OrderBy();
+        public static BusinessCriteria BusinessCriteriaCreate<U>(IClauseBuilder clauseBuilder, ParameterDefinition[] parameterDefinitions)
+        {
+            BusinessCriteria restult = new BusinessCriteria();
+            if (clauseBuilder != null)
+            {
+                JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+                restult.SqlRepoExStatement = clauseBuilder.Sql();
+                restult.ParameterDefinition = javaScriptSerializer.Serialize(parameterDefinitions);
 
-                restult.AccessFetch = znExp.AccessFetch;
-
-                restult.AccessFetchList = znExp.AccessFetchList;
             }
             return restult;
 

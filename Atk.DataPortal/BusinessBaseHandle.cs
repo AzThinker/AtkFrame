@@ -1,12 +1,13 @@
-﻿using Atk.CustomExpression;
-using Atk.DataPortal.Core;
-using Atk.DataPortal.UiServer;
-using Autofac;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web.Script.Serialization;
-
+using Atk.CustomExpression;
+using Atk.DataPortal.Core;
+using Atk.DataPortal.UiServer;
+using Autofac;
+using SqlRepoEx.Abstractions;
+using SqlRepoEx.Core;
 
 namespace Atk.DataPortal
 {
@@ -18,11 +19,9 @@ namespace Atk.DataPortal
     /// <typeparam name="E">BLL类</typeparam>
     /// <typeparam name="Ds">UI服务列表类</typeparam>
     /// <typeparam name="D">UI服务DTO类</typeparam>
-    public abstract class BusinessBaseHandle<Es, E, Ds, D>
-        where Es : BusinessListBase<E>
-        where E : BusinessBase
-        where D : BaseUIDto<D, E>
-        where Ds : BaseListUIDto<D, E>
+    public abstract class BusinessBaseHandle<Es, E>
+        where Es : BusinessListBase<E>, new()
+        where E : BusinessBase, new()
     {
         #region 构造方法
 
@@ -55,15 +54,7 @@ namespace Atk.DataPortal
         /// </summary>
         protected Power _power;
 
-        /// <summary>
-        /// 数据门
-        /// </summary>
-        protected IDataPortal<E> _dataportal;
 
-        /// <summary>
-        /// 列表数据门
-        /// </summary>
-        protected IDataPortalList<Es, E> _dataportallist;
 
 
         /// <summary>
@@ -93,57 +84,7 @@ namespace Atk.DataPortal
             _dataportalcontext = context;
         }
 
-        /// <summary>
-        /// 上下文附加
-        /// </summary>
-        /// <param name="bllitem">业务类</param>
-        protected virtual void ApplyContext(E bllitem)
-        {
-            bllitem.Context = _dataportalcontext;
-            bllitem.WorkContext = _workcontext;
-        }
 
-        /// <summary>
-        /// 列表类上下文附加
-        /// </summary>
-        /// <param name="bllitems">列表类型</param>
-
-        protected virtual void ApplyContext(Es bllitems)
-        {
-            bllitems.Context = _dataportalcontext;
-            bllitems.WorkContext = _workcontext;
-        }
-
-        /// <summary>
-        /// 返回类操作
-        /// </summary>
-        /// <param name="item">UI-DTO</param>
-        /// <param name="dataportalhandle">操作类型</param>
-        /// <param name="znexp">表达式</param>
-        /// <returns>UI-DTO</returns>
-        protected virtual D ItemHandle(D item, Func<E, E> dataportalhandle, ExpConditions<D> znexp)
-        {
-            E bllitem = item.CopyToIn();
-            ApplyContext(bllitem);
-            bllitem.Criteria = BusinessCriteria.BusinessCriteriaCreate(znexp);
-            bllitem = dataportalhandle(bllitem);
-            return item.CopyToOut(bllitem);
-        }
-
-        /// <summary>
-        /// 返状态操作
-        /// </summary>
-        /// <param name="item">操作项目</param>
-        /// <param name="dataportalhandle">操作</param>
-        /// <param name="znexp">参数表达式</param>
-        /// <returns>操作结果</returns>
-        protected virtual OperateState ItemHandleState(D item, Func<E, OperateState> dataportalhandle, ExpConditions<D> znexp)
-        {
-            E bllitem = item.CopyToIn();
-            ApplyContext(bllitem);
-            bllitem.Criteria = BusinessCriteria.BusinessCriteriaCreate(znexp);
-            return dataportalhandle(bllitem);
-        }
 
         #endregion
 
@@ -155,7 +96,7 @@ namespace Atk.DataPortal
         /// <param name="item">传入UI的业务类实例，用着传入条件携带者</param>
         /// <param name="znexp">条件表达式</param>
         /// <returns>增加结果</returns>
-        public virtual OperateState Insert(D item, ExpConditions<D> znexp)
+        public virtual OperateState Insert(InsertStatementBase<E> insertStatement)
         {
             if (!_power.Create)
             {
@@ -163,7 +104,7 @@ namespace Atk.DataPortal
                 return OperateState.FailState("没有增加记录权限！");
             }
 
-            return ItemHandleState(item, _dataportal.Insert, znexp);
+            return ItemHandleState(item, _dataportal.Insert, clauseBuilder);
 
 
         }
